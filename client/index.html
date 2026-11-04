@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BloodConnect - Emergency Blood Donor Platform connecting patients, hospitals and donors in real-time." />
+    <title>BloodConnect – Emergency Blood Donation Platform</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            DEFAULT: '#F8F3E8',
+                            50: '#FFFDF7',
+                            100: '#FDF9ED',
+                            200: '#F8F3E8',
+                            300: '#EFE5D1',
+                            card: '#FFFEFA',
+                            border: '#D8E2DF'
+                        },
+                        ocean: {
+                            DEFAULT: '#DCEEF2',
+                            50: '#F5FAFB',
+                            100: '#EAF5F6',
+                            200: '#DCEEF2',
+                            300: '#B8DFE6',
+                            500: '#38A3B8',
+                            600: '#237B8C',
+                            700: '#1F616F',
+                            800: '#214F5A',
+                            900: '#1E424B',
+                            950: '#0F252B'
+                        },
+                        navy: {
+                            DEFAULT: '#233746',
+                            700: '#354E60',
+                            800: '#2B4254',
+                            900: '#233746',
+                            950: '#17242E'
+                        },
+                        secText: '#526675',
+                        brand: {
+                            50: '#EAF5F6',
+                            100: '#DCEEF2',
+                            500: '#237B8C',
+                            600: '#1F616F',
+                            700: '#174B56',
+                            800: '#214F5A',
+                            900: '#233746'
+                        },
+                        priority: {
+                            critical: '#DC2626',
+                            criticalBg: '#FEF2F2',
+                            criticalText: '#991B1B',
+                            urgent: '#F59E0B',
+                            urgentBg: '#FFFBEB',
+                            urgentText: '#B45309',
+                            standard: '#EAB308',
+                            standardBg: '#FEFCE8',
+                            standardText: '#854D0E',
+                            fulfilled: '#16A34A',
+                            fulfilledBg: '#F0FDF4',
+                            fulfilledText: '#166534'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .blood-drop-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: .85; transform: scale(1.05); }
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+  </head>
+  <body class="bg-[#F8F3E8] text-[#233746] antialiased selection:bg-[#DCEEF2] selection:text-[#233746]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
