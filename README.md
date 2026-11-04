@@ -128,6 +128,16 @@ npm run client
 ```
 Access the Vite dev server at **`http://localhost:3000`** (requests to `/api` and `/socket.io` are automatically proxied to port 5000).
 
+## Deploying to Vercel
+
+This repository includes a Vercel configuration for the Vite frontend and Express API:
+
+1. Import the repository into Vercel without changing the root directory.
+2. Add `MONGODB_URI` and a long random `JWT_SECRET` in the Vercel project environment variables.
+3. Deploy with the included `vercel.json` settings.
+
+The API is deployed as a Vercel Function at `/api`. Socket.IO is available during local development; Vercel Functions do not provide a persistent WebSocket server, so the application uses its normal API behavior there.
+
 ---
 
 ## 📡 API Endpoints Overview

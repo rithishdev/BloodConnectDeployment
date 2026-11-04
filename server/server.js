@@ -17,15 +17,18 @@ const analyticsRoutes = require('./routes/analyticsRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
+const isVercel = process.env.VERCEL === '1';
 const server = http.createServer(app);
 
 // Initialize Socket.io with permissive CORS for development
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-  }
-});
+const io = isVercel
+  ? { emit: () => {}, on: () => {} }
+  : new Server(server, {
+      cors: {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+      }
+    });
 
 // Attach io instance to express app so controllers can emit events
 app.set('io', io);
@@ -111,6 +114,23 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
+let initializationPromise;
+
+const initialize = () => {
+  if (!initializationPromise) {
+    initializationPromise = (async () => {
+      await connectDB();
+      await seedMongoIfEmpty();
+      await ensureDefaultUsers();
+    })().catch((error) => {
+      initializationPromise = undefined;
+      throw error;
+    });
+  }
+
+  return initializationPromise;
+};
+
 process.on('uncaughtException', (err) => {
   console.error('⚠️ Uncaught Exception:', err);
 });
@@ -119,14 +139,19 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Start server
+if (require.main === module) {
 server.listen(PORT, async () => {
   console.log(`\n=================================================`);
   console.log(`🚀 BloodConnect Server running on http://localhost:${PORT}`);
   console.log(`🚨 Real-time Socket.io active on port ${PORT}`);
   console.log(`=================================================\n`);
 
-  // Connect to MongoDB (Atlas or fallback)
-  await connectDB();
-  await seedMongoIfEmpty();
-  await ensureDefaultUsers();
+  try {
+    await initialize();
+  } catch (error) {
+    console.error('Server initialization failed:', error);
+  }
 });
+}
+
+module.exports = { app, initialize };
